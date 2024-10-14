@@ -1,0 +1,12 @@
+{
+  "_id": "ObjectId",
+  "user_id": {
+    "type": "ObjectId",
+    "ref": "users"
+  },
+  "entry_date": "ISODate",
+  "mood": "string",
+  "symptoms": "string",
+  "journal_entry": "string",
+  "created_at": "ISODate"
+}

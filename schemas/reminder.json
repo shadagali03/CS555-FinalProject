@@ -1,0 +1,13 @@
+{
+  "_id": "ObjectId",
+  "user_id": {
+    "type": "ObjectId",
+    "ref": "users"
+  },
+  "reminder_type": "string",
+  "reminder_message": "string",
+  "scheduled_time": "ISODate",
+  "repeat": "string",
+  "created_at": "ISODate",
+  "completed_at": "ISODate"
+}

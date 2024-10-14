@@ -1,0 +1,11 @@
+{
+  "_id": "ObjectId",
+  "user_id": {
+    "type": "ObjectId",
+    "ref": "users"
+  },
+  "habit_type": "string",
+  "current_streak": "integer",
+  "last_completed": "ISODate",
+  "created_at": "ISODate"
+}
