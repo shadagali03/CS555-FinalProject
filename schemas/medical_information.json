@@ -1,0 +1,117 @@
+{
+  "_id": "ObjectId",
+  "user_id": {
+    "type": "ObjectId",
+    "ref": "users"
+  },
+  "allergies": [
+    {
+      "allergy_name": "string",
+      "allergy_type": "string"
+    }
+  ],
+  "current_medications": [
+    {
+      "medication_name": "string",
+      "dosage": "string",
+      "frequency": "string"
+    }
+  ],
+  "medical_history": [
+    {
+      "condition_name": "string",
+      "diagnosis_date": "ISODate",
+      "treatment": "string"
+    }
+  ],
+  "psychiatric_history": [
+    {
+      "condition_name": "string",
+      "diagnosis_date": "ISODate",
+      "treatment": "string"
+    }
+  ],
+  "cognitive_status": {
+    "status": "string",
+    "mmse_score": "number",
+    "fast_score": "number"
+  },
+  "emotional_status": {
+    "mood": "string",
+    "depression": "boolean",
+    "anxiety": "boolean",
+    "fatigue": "boolean"
+  },
+  "motivation_level": "string",
+  "health_attitude": "string",
+  "communication": {
+    "speech": "string",
+    "hearing": "string",
+    "vision": "string"
+  },
+  "physical_status": {
+    "strength": {
+      "upper_body": "string",
+      "lower_body": "string"
+    },
+    "mobility": {
+      "transfers": "string",
+      "walking": "string"
+    },
+    "balance": {
+      "falls": "string",
+      "gait": "string"
+    }
+  },
+  "elimination": {
+    "bowel": "string",
+    "bladder": "string"
+  },
+  "nutrition": {
+    "weight": "string",
+    "appetite": "string"
+  },
+  "adl_status": {
+    "feeding": "string",
+    "bathing": "string",
+    "dressing": "string",
+    "toileting": "string"
+  },
+  "iadl_status": {
+    "cooking": "string",
+    "cleaning": "string",
+    "shopping": "string",
+    "medications": "string",
+    "driving": "string",
+    "banking": "string"
+  },
+  "sleep": {
+    "quality": "string",
+    "daytime_drowsiness": "boolean"
+  },
+  "social_status": {
+    "relationship_status": "string",
+    "living_situation": "string",
+    "social_engagement": "string"
+  },
+  "supports": {
+    "informal": ["string"],
+    "formal": ["string"],
+    "required_support": "boolean"
+  },
+  "frailty_score": {
+    "patient": "number",
+    "caregiver": "number"
+  },
+  "caregiver_stress": "string",
+  "resuscitation_preference": "string",
+  "action_required": {
+    "notes": [
+      {
+        "problem": "string",
+        "recommendation": "string"
+      }
+    ]
+  },
+  "updated_at": "ISODate"
+}

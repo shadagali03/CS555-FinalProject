@@ -1,0 +1,37 @@
+{
+  "_id": "ObjectId",
+  "name": {
+    "first": "string",
+    "last": "string"
+  },
+  "age": "integer",
+  "language_preference": "string",
+  "contact_info": {
+    "email": "string",
+    "phone_number": "string"
+  },
+  "created_at": "ISODate",
+  "medical_information": {
+    "type": "ObjectId",
+    "ref": "medical_information"
+  },
+  "reminders": [
+    {
+      "type": "ObjectId",
+      "ref": "reminders"
+    }
+  ],
+  "journal": [
+    {
+      "entry_id": "ObjectId",
+      "entry_date": "ISODate",
+      "journal_entry": "string"
+    }
+  ],
+  "streaks": [
+    {
+      "type": "ObjectId",
+      "ref": "streaks"
+    }
+  ]
+}
