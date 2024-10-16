@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-// import userRoutes from "./routes/userRoutes.js";
+import configRoutes from "./api/index.js";
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ app.get("/ping", async function (req, res) {
 });
 
 // Routes
-// app.use("/api/users", userRoutes);
+configRoutes(app);
 
 // Error Handling
 app.use(function (err, req, res, next) {
