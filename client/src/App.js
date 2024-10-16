@@ -1,7 +1,17 @@
 import React from "react";
+import {Login} from "./views/login"
+import {Signup} from "./views/signup"
+console.log(Login)
 
-function App() {
+export const App = () =>  {
   return (
+    // code below displays login and sign up page, you can call it like so when you want to render it
+    // <div>
+    
+    //   <h1>Welcome to CS555 Team 16</h1>
+    //   <Login />
+    //   <Signup />
+    // </div>
     <div style={styles.container}>
       {/* Header Section */}
       <header style={styles.header}>
@@ -140,6 +150,6 @@ const styles = {
     borderRadius: "10px",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
   },
-};
+ };
 
-export default App;
+   
