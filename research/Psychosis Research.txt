@@ -1,0 +1,14 @@
+1.	“Do you often feel alone or that you have no one there for you?”
+a.	Determines if the user feels any sort of abandonment.
+
+2.	“Have you heard anything that wasn’t really there?”
+a.	Type of question can be used to determine if the user is experiencing any paranoia or audible hallucinations.
+
+3.	“Have you seen something someone else hasn’t?”
+a.	Determines if the user has experienced any visual hallucinations.
+
+4.	“Have you tasted or smelt something that wasn’t there?”
+a.	Determines if the user has experienced hallucinations regarding taste and smell.
+
+5.	“Have you misplaced anything recently?”
+a.	Determines whether the user is having lapses in their memory.
