@@ -28,7 +28,7 @@ export const loginUser = async (creds) => {
 };
 
 export const registerUser = async (creds) => {
-  const { firstName, lastName, username, email, password } = creds;
+  const { firstName, lastName, email, password } = creds;
 
   const normalizedEmail = email.toLowerCase();
 
@@ -45,7 +45,6 @@ export const registerUser = async (creds) => {
   let user = {
     firstName,
     lastName,
-    username,
     email: normalizedEmail,
     password: hashedPassword,
   };
