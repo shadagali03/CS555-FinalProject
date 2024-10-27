@@ -1,93 +1,91 @@
 import React from "react";
-import {Login} from "./views/login"
-import {Signup} from "./views/signup"
-console.log(Login)
+import { Login } from "./views/login";
+import { Signup } from "./views/signup";
+console.log(Login);
 
-export const App = () =>  {
+export const App = () => {
   return (
-    // code below displays login and sign up page, you can call it like so when you want to render it
-    // <div>
-    
-    //   <h1>Welcome to CS555 Team 16</h1>
-    //   <Login />
-    //   <Signup />
-    // </div>
-    <div style={styles.container}>
-      {/* Header Section */}
-      <header style={styles.header}>
-        <h1>Your Health Companion for Better Living</h1>
-        <p style={styles.description}>
-          A voice assistant that helps seniors manage their health with ease. Stay active, manage medication, and track your health effortlessly.
-        </p>
-        <button style={styles.button}>Get Started</button>
-      </header>
+    <>
+      <Login />
+      <Signup />
+      <div style={styles.container}>
+        {/* Header Section */}
+        <header style={styles.header}>
+          <h1>Your Health Companion for Better Living</h1>
+          <p style={styles.description}>
+            A voice assistant that helps seniors manage their health with ease.
+            Stay active, manage medication, and track your health effortlessly.
+          </p>
+          <button style={styles.button}>Get Started</button>
+        </header>
 
-      {/* Features Section */}
-      <section style={styles.features}>
-        <h2>Key Features</h2>
-        <div style={styles.featuresGrid}>
-          <div style={styles.featureItem}>
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Health Reminders"
-              style={styles.icon}
-            />
-            <h3>Health Reminders</h3>
-            <p>Get voice reminders for walking, medication, and more.</p>
+        {/* Features Section */}
+        <section style={styles.features}>
+          <h2>Key Features</h2>
+          <div style={styles.featuresGrid}>
+            <div style={styles.featureItem}>
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Health Reminders"
+                style={styles.icon}
+              />
+              <h3>Health Reminders</h3>
+              <p>Get voice reminders for walking, medication, and more.</p>
+            </div>
+            <div style={styles.featureItem}>
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Multi-language Support"
+                style={styles.icon}
+              />
+              <h3>Multi-language Support</h3>
+              <p>Accessible to seniors from diverse backgrounds.</p>
+            </div>
+            <div style={styles.featureItem}>
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Health Tracking"
+                style={styles.icon}
+              />
+              <h3>Track Your Health</h3>
+              <p>Record daily health insights with your voice.</p>
+            </div>
           </div>
-          <div style={styles.featureItem}>
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Multi-language Support"
-              style={styles.icon}
-            />
-            <h3>Multi-language Support</h3>
-            <p>Accessible to seniors from diverse backgrounds.</p>
-          </div>
-          <div style={styles.featureItem}>
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Health Tracking"
-              style={styles.icon}
-            />
-            <h3>Track Your Health</h3>
-            <p>Record daily health insights with your voice.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Additional Features Section */}
-      <section style={styles.additionalFeatures}>
-        <h2>Additional Features</h2>
-        <div style={styles.featuresGrid}>
-          <div style={styles.featureItem}>
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Health Journal"
-              style={styles.icon}
-            />
-            <h3>Voice-Controlled Health Journal</h3>
-            <p>Record your daily health status through voice commands.</p>
+        {/* Additional Features Section */}
+        <section style={styles.additionalFeatures}>
+          <h2>Additional Features</h2>
+          <div style={styles.featuresGrid}>
+            <div style={styles.featureItem}>
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Health Journal"
+                style={styles.icon}
+              />
+              <h3>Voice-Controlled Health Journal</h3>
+              <p>Record your daily health status through voice commands.</p>
+            </div>
+            <div style={styles.featureItem}>
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Streaks"
+                style={styles.icon}
+              />
+              <h3>Streaks</h3>
+              <p>Encourages you to maintain healthy habits.</p>
+            </div>
           </div>
-          <div style={styles.featureItem}>
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Streaks"
-              style={styles.icon}
-            />
-            <h3>Streaks</h3>
-            <p>Encourages you to maintain healthy habits.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer Section */}
-      <footer style={styles.footer}>
-        <button style={styles.button}>Get Started</button>
-      </footer>
-    </div>
+        {/* Footer Section */}
+        <footer style={styles.footer}>
+          <button style={styles.button}>Get Started</button>
+        </footer>
+      </div>
+    </>
   );
-}
+};
 
 // Inline styles for the layout
 const styles = {
@@ -150,6 +148,4 @@ const styles = {
     borderRadius: "10px",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
   },
- };
-
-   
+};
