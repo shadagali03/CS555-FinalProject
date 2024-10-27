@@ -5,7 +5,7 @@ import { LandingPage } from "./views/landingPage";
 import { VoiceRecorder } from "./views/voiceRecorder";
 console.log(Login)
 
-export const App = () =>  {
+export const App = () => {
   return (
     // code below displays login and sign up page, you can call it like so when you want to render it
     // 
@@ -158,5 +158,3 @@ export const App = () =>  {
 //     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
 //   },
 //  };
-
-   
