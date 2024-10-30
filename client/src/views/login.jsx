@@ -9,6 +9,14 @@ export const Login = () => {
     e.preventDefault();
 
     console.log("Logging in with:", email, password);
+    fetch('http://localhost:3000/api/users/login',{
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+    this.context.router.push('client/src/views/home.jsx');
   };
 
   return (

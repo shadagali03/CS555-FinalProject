@@ -1,4 +1,3 @@
-import React from "react";
 //referenced https://javascript.plainenglish.io/build-a-simple-react-login-form-using-event-handlers-and-react-hook-4afb11391e48
 //https://www.freecodecamp.org/news/usestate-hook-3-different-examples/
 export const Signup = () => {
@@ -17,7 +16,21 @@ export const Signup = () => {
       return;
     }
 
+
+    console.log("Resgistering: ",firstName,lastName, email, password);
+    fetch('http://localhost:3000/api/users/register',{
+      method: 'POST',
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password
+      })
+    })
+
     console.log("Account created for:", firstName, lastName, email);
+    
+    this.context.router.push('client/src/views/home.jsx');
   };
 
   return (
