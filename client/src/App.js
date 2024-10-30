@@ -5,7 +5,6 @@ import { Journal } from "./views/journal";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainView from "./views/MainView";
 import Navbar from "./views/components/Navbar";
-import React from "react";
 
 import { LandingPage } from "./views/landingPage";
 import { VoiceRecorder } from "./views/voiceRecorder";
