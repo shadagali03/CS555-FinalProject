@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import App from './App';
-import Journal from './views/journal';
+import { App } from './App';
+import { Journal } from './views/journal';
 
 describe('Landing Page', () => {
   
