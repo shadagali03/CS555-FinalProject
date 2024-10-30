@@ -21,7 +21,7 @@ export const App = () => {
 		<Login />
 		<Signup />
   
-		  <Router>
+		  {/* <Router>
 			  <Navbar />
 			  <Routes>
 				  <Route path="/" element={<MainView />} />
@@ -29,7 +29,7 @@ export const App = () => {
 				  <Route path="/signup" element={<Signup />} />
 				  <Route path="/journal" element={<Journal />} />
 			  </Routes>
-		  </Router>
+		  </Router> */}
 	  </div>
 	);
 };
