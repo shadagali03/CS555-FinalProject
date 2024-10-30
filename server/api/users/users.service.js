@@ -9,12 +9,12 @@ const BCRYPT_WORK_FACTOR = 2;
 
 export const loginUser = async (creds) => {
   const { email, password } = creds;
+  console.log(creds);
 
   const normalizedEmail = email.toLowerCase();
 
   const usersCollection = await users();
   const user = await usersCollection.findOne({ email: normalizedEmail });
-
   if (user) {
     const isValid = await bcrypt.compare(password, user.password);
     if (isValid) {
@@ -40,7 +40,7 @@ export const registerUser = async (creds) => {
     throw new BadRequestError(
       `User with Email ${normalizedEmail} already exists`
     );
-
+  console.log("Creating new user...");
   const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
   let user = {
     firstName,
