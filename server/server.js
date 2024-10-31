@@ -1,35 +1,19 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import configRoutes from "./api/index.js";
+// src/server.js
+import app from "./app.js";
+import { dbConnection } from "./config/mongoConnections.js";
 
-dotenv.config();
-
-const app = express();
-app.use(cors());
-app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
-// Health Check
-app.get("/ping", async function (req, res) {
-  return res.status(200).json({
-    ping: "pong",
-  });
-});
+const startServer = async () => {
+  try {
+    await dbConnection(); // Connect to MongoDB using dbConnection
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Failed to start server:", err);
+    process.exit(1); // Exit process with failure
+  }
+};
 
-// Routes
-configRoutes(app);
-
-// Error Handling
-app.use(function (err, req, res, next) {
-  const status = err.status || 500;
-  const message = err.message;
-  return res.status(status).json({
-    error: { message, status },
-  });
-});
-
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+startServer();
