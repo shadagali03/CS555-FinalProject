@@ -1,22 +1,32 @@
-import React, { useState } from "react";
-//referenced https://javascript.plainenglish.io/build-a-simple-react-login-form-using-event-handlers-and-react-hook-4afb11391e48
-//https://www.freecodecamp.org/news/usestate-hook-3-different-examples/
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import apiClient from "../services/apiClient";
+import { AuthorizeContext } from "../contexts/auth";
+
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { setAuthState } = useContext(AuthorizeContext);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    console.log("Logging in with:", email, password);
-    fetch('http://localhost:3000/api/users/login',{
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    })
-    this.context.router.push('client/src/views/home.jsx');
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error, message } = await apiClient.login({
+        email,
+        password,
+      });
+      if (data) {
+        setAuthState((state) => ({ ...state, isAuthenticated: true }));
+        localStorage.setItem("user_token", data.token);
+        navigate("/journal");
+      } else {
+        console.error(error || message);
+      }
+    } catch (err) {
+      const message = err?.response?.data?.error?.message;
+      console.error(message || err);
+    }
   };
 
   return (
@@ -36,7 +46,6 @@ export const Login = () => {
             style={styles.input}
             required
           />
-          //referenced https://stackoverflow.com/questions/71536244/check-username-password-login-form-using-react-hooks
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -111,4 +120,3 @@ const styles = {
     cursor: "pointer",
   },
 };
-
