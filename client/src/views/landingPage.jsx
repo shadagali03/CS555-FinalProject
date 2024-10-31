@@ -55,6 +55,7 @@ export const LandingPage = () => {
   
         {/* Footer Section */}
         <footer style={styles.footer}>
+          
           <button style={styles.button}>Get Started</button>
         </footer>
       </div>
