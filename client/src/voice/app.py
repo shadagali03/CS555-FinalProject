@@ -12,15 +12,11 @@ CORS(app)
 def transcribe():
     try:
         transcription = record_and_transcribe()
-        print(transcription, type(transcription))
         insights = sentiment_analysis(transcription)
-        print(insights, type(insights))
-        response_data = {
+        return jsonify({
             "transcription": transcription,
             "interpretation": insights
-        }
-        print(response_data)
-        return (response_data), 200
+        }), 200
     except Exception as e:
         return jsonify({
             "error": str(e)
