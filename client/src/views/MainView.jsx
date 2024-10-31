@@ -1,3 +1,4 @@
+// import { Link } from "react-router-dom";
 const MainView = () => {
 	return (
 		<div style={styles.container}>
@@ -78,6 +79,9 @@ const MainView = () => {
 
 			{/* Footer Section */}
 			<footer style={styles.footer}>
+			{/* <Link to="/home" style={styles.button}>
+          Get Started
+        </Link> */}
 				<button style={styles.button}>Get Started</button>
 			</footer>
 		</div>

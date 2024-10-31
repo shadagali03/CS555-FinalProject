@@ -1,5 +1,6 @@
 import React from "react";
 import { Login } from "./views/login";
+import Home from "./views/home"; 
 import { Signup } from "./views/signup";
 import { Journal } from "./views/journal";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,13 +19,18 @@ export const App = () => {
 		<h1>Welcome to CS555 Team 16</h1>
 		<VoiceRecorder />
 		<LandingPage />
+		{/* <Home/> */}
 		<Login />
 		<Signup />
+		
+		
   
 		  {/* <Router>
 			  <Navbar />
 			  <Routes>
+			  	  
 				  <Route path="/" element={<MainView />} />
+				  <Route path="/home" element={<Home />} />	
 				  <Route path="/login" element={<Login />} />
 				  <Route path="/signup" element={<Signup />} />
 				  <Route path="/journal" element={<Journal />} />
