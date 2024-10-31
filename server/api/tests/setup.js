@@ -1,4 +1,3 @@
-// tests/setup.js
 import { MongoMemoryServer } from "mongodb-memory-server";
 import {
   dbConnection,

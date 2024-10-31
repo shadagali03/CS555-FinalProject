@@ -1,4 +1,3 @@
-// src/server.js
 import app from "./app.js";
 import { dbConnection } from "./config/mongoConnections.js";
 

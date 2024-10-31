@@ -1,4 +1,3 @@
-// src/config/mongoConnections.js
 import { MongoClient } from "mongodb";
 import { mongoConfig } from "./dbSettings.js";
 

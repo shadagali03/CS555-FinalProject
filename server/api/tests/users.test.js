@@ -1,4 +1,3 @@
-// tests/users.test.js
 import request from "supertest";
 import app from "../../app.js"; // Ensure your Express app is exported from app.js
 import { users } from "../../config/mongoCollections.js";
