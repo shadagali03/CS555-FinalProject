@@ -10,27 +10,25 @@ export const Signup = () => {
     const password = e.target.password.value.trim();
     const retypePassword = e.target.retypePassword.value.trim();
 
-
     if (password !== retypePassword) {
       alert("Passwords do not match!");
       return;
     }
 
-
-    console.log("Resgistering: ",firstName,lastName, email, password);
-    fetch('http://localhost:3000/api/users/register',{
-      method: 'POST',
+    console.log("Resgistering: ", firstName, lastName, email, password);
+    fetch("http://localhost:3000/api/users/register", {
+      method: "POST",
       body: JSON.stringify({
         firstName: firstName,
         lastName: lastName,
         email: email,
-        password: password
-      })
-    })
+        password: password,
+      }),
+    });
 
     console.log("Account created for:", firstName, lastName, email);
-    
-    this.context.router.push('client/src/views/home.jsx');
+
+    this.context.router.push("client/src/views/home.jsx");
   };
 
   return (
@@ -42,26 +40,49 @@ export const Signup = () => {
         <h2>Create Your Account</h2>
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inlineFields}>
-
             <div style={styles.inputGroup}>
               <label htmlFor="firstName">First name</label>
-              <input type="text" id="firstName" name="firstName" style={styles.input} required />
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                style={styles.input}
+                required
+              />
             </div>
 
             <div style={styles.inputGroup}>
               <label htmlFor="lastName">Last name</label>
-              <input type="text" id="lastName" name="lastName" style={styles.input} required />
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                style={styles.input}
+                required
+              />
             </div>
           </div>
 
           <div style={styles.inputGroup}>
             <label htmlFor="email">Email Address</label>
-            <input type="email" id="email" name="email" style={styles.input} required />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              style={styles.input}
+              required
+            />
           </div>
 
           <div style={styles.inputGroup}>
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" style={styles.input} required />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              style={styles.input}
+              required
+            />
           </div>
 
           <div style={styles.inputGroup}>
@@ -74,7 +95,6 @@ export const Signup = () => {
               required
             />
           </div>
-
 
           <button type="submit" style={styles.button}>
             Submit
@@ -140,4 +160,3 @@ const styles = {
     cursor: "pointer",
   },
 };
-

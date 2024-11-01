@@ -30,16 +30,6 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-// router.route("/").post(async (req, res) => {
-//   try {
-//     const user = req.body;
-//     const userId = await userService.addUser(user);
-//     res.status(201).send(userId);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
-
 router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { user } = res.locals;

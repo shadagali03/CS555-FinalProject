@@ -9,7 +9,6 @@ const BCRYPT_WORK_FACTOR = 2;
 
 export const loginUser = async (creds) => {
   const { email, password } = creds;
-  console.log(creds);
 
   const normalizedEmail = email.toLowerCase();
 
@@ -22,7 +21,7 @@ export const loginUser = async (creds) => {
       const userToken = await createUserToken(user);
       return { user, userToken };
     }
-    console.log("Wrong password!");
+    // wrong password
   }
   throw new UnauthorizedError("Invalid Password/Email combination");
 };
@@ -40,7 +39,7 @@ export const registerUser = async (creds) => {
     throw new BadRequestError(
       `User with Email ${normalizedEmail} already exists`
     );
-  console.log("Creating new user...");
+
   const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
   let user = {
     firstName,
@@ -57,18 +56,3 @@ export const registerUser = async (creds) => {
   const userToken = await createUserToken(user);
   return { user, userToken };
 };
-
-const addUser = async (user) => {
-  const userCollection = await users();
-  const insertInfo = await userCollection.insertOne(user);
-  if (insertInfo.insertedCount === 0) throw "Could not add user";
-  return insertInfo.insertedId;
-};
-
-const getUserById = async (user_id) => {
-  const userCollection = await users();
-  const user = await userCollection.findOne({ _id: user_id });
-  return user;
-};
-
-export { addUser, getUserById };
