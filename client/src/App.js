@@ -6,8 +6,6 @@ import { Journal } from "./views/journal";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainView from "./views/MainView";
 import Navbar from "./views/components/Navbar";
-
-import Home from "./views/home";
 import { VoiceRecorder } from "./views/voiceRecorder";
 
 export const App = () => {
