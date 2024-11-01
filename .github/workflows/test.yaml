@@ -33,11 +33,11 @@ jobs:
           node-version: "16" # Ensure compatibility with your project
 
       - name: Install Backend Dependencies
-        working-directory: ./server
+        working-directory: /server
         run: npm install
 
       - name: Install Frontend Dependencies
-        working-directory: ./client
+        working-directory: /client
         run: npm install
 
       - name: Wait for MongoDB to be ready
@@ -52,12 +52,12 @@ jobs:
           done
 
       - name: Run Backend Tests
-        working-directory: ./backend
+        working-directory: ./server
         env:
           MONGO_URI: mongodb://localhost:27017/testdb # Use a test database
           NODE_ENV: test
         run: npm test
 
       - name: Run Frontend Tests
-        working-directory: ./frontend
+        working-directory: ./client
         run: npm test
