@@ -30,14 +30,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16" # Ensure compatibility with your project
+          node-version: "21"
 
       - name: Install Backend Dependencies
-        working-directory: /server
+        working-directory: ./server
         run: npm install
 
       - name: Install Frontend Dependencies
-        working-directory: /client
+        working-directory: ./client
         run: npm install
 
       - name: Wait for MongoDB to be ready
