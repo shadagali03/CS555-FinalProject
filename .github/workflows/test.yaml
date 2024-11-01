@@ -33,11 +33,11 @@ jobs:
           node-version: "16" # Ensure compatibility with your project
 
       - name: Install Backend Dependencies
-        working-directory: ./backend
+        working-directory: /server
         run: npm install
 
       - name: Install Frontend Dependencies
-        working-directory: ./frontend
+        working-directory: /client
         run: npm install
 
       - name: Wait for MongoDB to be ready
