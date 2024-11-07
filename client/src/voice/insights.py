@@ -1,5 +1,4 @@
 from textblob import TextBlob
-from record_and_transcribe import record_and_transcribe
 
 def sentiment_analysis(text):
     blob = TextBlob(text)

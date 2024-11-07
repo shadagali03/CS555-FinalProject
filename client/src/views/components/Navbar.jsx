@@ -14,6 +14,11 @@ const Navbar = () => {
 						</Link>
 					</li>
 					<li className="navbar-item">
+						<Link to="/voiceRecorder" className="navbar-link">
+							Voice Recorder
+						</Link>
+					</li>
+					<li className="navbar-item">
 						<Link to="/about" className="navbar-link">
 							About
 						</Link>
