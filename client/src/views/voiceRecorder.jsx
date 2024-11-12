@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 export const VoiceRecorder = () => {
   const [transcription, setTranscription] = useState('');
@@ -7,19 +9,11 @@ export const VoiceRecorder = () => {
   const [error, setError] = useState('');
 
   const handleRecordAndTranscribe = async () => {
-    setLoading(true); // doesn't time out hopefully
-    setError('');
-    setTranscription('');
-    setInterpretation({});
+    resetStates(); // extract it into a function, so we can reuse it later
+    setLoading(true);
 
     try {
-        const response = await fetch('http://localhost:5000/transcribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-
+      const response = await fetchTranscription();
       const data = await response.json();
 
       if (response.ok) {
@@ -35,6 +29,19 @@ export const VoiceRecorder = () => {
     }
   };
 
+  const resetStates = () => {
+    setError('');
+    setTranscription('');
+    setInterpretation({});
+  };
+
+  const fetchTranscription = () => { // extract function
+    return fetch('http://localhost:5000/transcribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
+
   return (
     <div style={styles.container}>
       <button onClick={handleRecordAndTranscribe} style={styles.button} disabled={loading}>
@@ -43,7 +50,7 @@ export const VoiceRecorder = () => {
       <div style={styles.result}>
         {error && <p style={styles.error}>{error}</p>}
         {transcription && <p>Transcription: {transcription}</p>}
-        {interpretation.polarity !== undefined && (  
+        {interpretation.polarity !== undefined && (
           <p>
             Interpretation: Polarity: {interpretation.polarity}, Subjectivity: {interpretation.subjectivity}
           </p>
@@ -74,4 +81,3 @@ const styles = {
     color: 'red',
   },
 };
-

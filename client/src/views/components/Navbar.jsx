@@ -31,6 +31,7 @@ const navItems = [
 	{ path: "/journal", label: "Health Journal" },
 	{ path: "/login", label: "Login" },
 	{ path: "/signup", label: "Sign Up" },
+	{ path: "/voiceRecorder", label: "Voice Recorder" },
 ];
 
 const Navbar = () => {
