@@ -69,7 +69,7 @@ const MainView = () => {
 				</div>
 				<div style={styles.faqItem}>
 					<h4>Is the app free to use?</h4>
-					<p>Yes, basic features are free. Premium features are available for a small fee.</p>
+					<p>Yes, all the features are completely free to use.</p>
 				</div>
 			</section>
 
