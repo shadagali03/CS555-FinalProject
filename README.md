@@ -59,7 +59,7 @@ Ultimately, the project focuses on improving seniors' quality of life by making 
 1. Navigate to the backend directory:
 
    ```bash
-   cd backend
+   cd server
    ```
 
 2. Install the dependencies:
@@ -75,12 +75,17 @@ Ultimately, the project focuses on improving seniors' quality of life by making 
    npm start
    ```
 
+5. Run backend tests:
+   ```bash
+   npm run test
+   ```
+
 ### Frontend (React)
 
 1. Navigate to the frontend directory:
 
    ```bash
-   cd frontend
+   cd client
    ```
 
 2. Install the dependencies:
@@ -92,6 +97,10 @@ Ultimately, the project focuses on improving seniors' quality of life by making 
 3. Start the frontend server:
    ```bash
    npm start
+   ```
+4. Run frontend tests:
+   ```bash
+   npm run test
    ```
 
 The application should now be running with the frontend available on `http://localhost:3000` and the backend on `http://localhost:3001` (or whichever port you specify).
