@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-
 
 export const VoiceRecorder = () => {
   const [transcription, setTranscription] = useState('');
@@ -9,7 +7,7 @@ export const VoiceRecorder = () => {
   const [error, setError] = useState('');
 
   const handleRecordAndTranscribe = async () => {
-    resetStates(); // extract it into a function, so we can reuse it later
+    resetStates();
     setLoading(true);
 
     try {
@@ -18,7 +16,10 @@ export const VoiceRecorder = () => {
 
       if (response.ok) {
         setTranscription(data.transcription);
-        setInterpretation(data.interpretation);
+        
+        // Set interpretation directly as a single object (not an array)
+        setInterpretation(data.interpretation || {});
+        console.log(data.interpretation)
       } else {
         setError(`Error: ${data.error}`);
       }
@@ -35,7 +36,7 @@ export const VoiceRecorder = () => {
     setInterpretation({});
   };
 
-  const fetchTranscription = () => { // extract function
+  const fetchTranscription = () => {
     return fetch('http://localhost:5000/transcribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -50,10 +51,13 @@ export const VoiceRecorder = () => {
       <div style={styles.result}>
         {error && <p style={styles.error}>{error}</p>}
         {transcription && <p>Transcription: {transcription}</p>}
-        {interpretation.polarity !== undefined && (
-          <p>
-            Interpretation: Polarity: {interpretation.polarity}, Subjectivity: {interpretation.subjectivity}
-          </p>
+        
+        {interpretation.label && (
+          <div>
+            <h3>Emotion Analysis:</h3>
+            <p>Emotion: {interpretation.label}</p>
+            <p>Score: {interpretation.score.toFixed(2)}</p>
+          </div>
         )}
       </div>
     </div>
