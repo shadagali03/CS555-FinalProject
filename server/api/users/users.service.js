@@ -1,58 +1,99 @@
-import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
-import { BadRequestError } from "../../utils/errors.js";
+import { BadRequestError, UnauthorizedError } from "../../utils/errors.js";
 import { createUserToken } from "../../utils/tokens.js";
 import { users } from "../../config/mongoCollections.js";
-import { UnauthorizedError } from "../../utils/errors.js";
+import validateInput from "../../utils/validate.js";
+import { loginSchema, registerSchema } from "../../utils/schemas.js";
 
+// A higher work factor (e.g., 12) makes hashing more secure but slower.
+// const BCRYPT_WORK_FACTOR = 12;
 const BCRYPT_WORK_FACTOR = 2;
 
 export const loginUser = async (creds) => {
-  const { email, password } = creds;
+  // Validate user input against the login schema
+  const { email, password } = validateInput(creds, loginSchema);
 
+  // Normalize email to ensure case-insensitive matching
   const normalizedEmail = email.toLowerCase();
 
+  // Access the users collection from the database
   const usersCollection = await users();
+
+  // Find the user by their normalized email
   const user = await usersCollection.findOne({ email: normalizedEmail });
   if (user) {
+    // Compare the provided password with the stored hashed password
     const isValid = await bcrypt.compare(password, user.password);
     if (isValid) {
-      delete user.password;
-      const userToken = await createUserToken(user);
-      return { user, userToken };
+      // Exclude the password from the user object before generating the token
+      const { password: _, ...userWithoutPassword } = user;
+      // Create a JWT token for the authenticated user
+      const userToken = await createUserToken(userWithoutPassword);
+      // Return the user data and token
+      return { user: userWithoutPassword, userToken };
     }
-    // wrong password
   }
+  // Throw an unauthorized error if user is not found or password is invalid
   throw new UnauthorizedError("Invalid Password/Email combination");
 };
 
 export const registerUser = async (creds) => {
-  const { firstName, lastName, email, password } = creds;
-
-  const normalizedEmail = email.toLowerCase();
-
-  const usersCollection = await users();
-  const existingUser = await usersCollection.findOne({
-    email: normalizedEmail,
-  });
-  if (existingUser)
-    throw new BadRequestError(
-      `User with Email ${normalizedEmail} already exists`
+  try {
+    // Validate user input against the registration schema
+    const { firstName, lastName, email, password } = validateInput(
+      creds,
+      registerSchema
     );
 
-  const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
-  let user = {
-    firstName,
-    lastName,
-    email: normalizedEmail,
-    password: hashedPassword,
-  };
+    // Normalize email to ensure uniqueness regardless of case
+    const normalizedEmail = email.toLowerCase();
 
-  const result = await usersCollection.insertOne(user);
+    // Access the users collection from the database
+    const usersCollection = await users();
 
-  user = await usersCollection.findOne({ _id: result.insertedId });
-  delete user.password;
+    // Check if a user with the normalized email already exists
+    const existingUser = await usersCollection.findOne({
+      email: normalizedEmail,
+    });
+    if (existingUser)
+      throw new BadRequestError(
+        `User with Email ${normalizedEmail} already exists`
+      );
 
-  const userToken = await createUserToken(user);
-  return { user, userToken };
+    // Hash the user's password for secure storage
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+    const user = {
+      firstName,
+      lastName,
+      email: normalizedEmail,
+      password: hashedPassword,
+    };
+
+    // Insert the new user into the database
+    const result = await usersCollection.insertOne(user);
+
+    // Retrieve the inserted user using the inserted ID
+    const insertedUser = await usersCollection.findOne({
+      _id: result.insertedId,
+    });
+
+    // Ensure that the user was successfully inserted
+    if (!insertedUser) {
+      throw new Error("User insertion failed");
+    }
+
+    // Exclude the password from the user object before generating the token
+    const { password: _, ...userWithoutPassword } = insertedUser;
+
+    // Create a JWT token for the newly registered user
+    const userToken = await createUserToken(userWithoutPassword);
+
+    // Return the user data and token
+    return { user: userWithoutPassword, userToken };
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error("Error in registerUser:", error);
+    // Re-throw the error to be handled by middleware or higher-level handlers
+    throw error;
+  }
 };
