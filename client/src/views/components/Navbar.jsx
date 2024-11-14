@@ -9,7 +9,7 @@ const Navbar = () => {
 				<h1 className="navbar-logo">My Voice Assistant</h1>
 				<ul className="navbar-menu">
 					<li className="navbar-item">
-						<Link to="/" className="navbar-link">
+						<Link to="/home" className="navbar-link">
 							Home
 						</Link>
 					</li>
