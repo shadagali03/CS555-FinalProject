@@ -1,34 +1,39 @@
-//referenced https://javascript.plainenglish.io/build-a-simple-react-login-form-using-event-handlers-and-react-hook-4afb11391e48
-//https://www.freecodecamp.org/news/usestate-hook-3-different-examples/
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import apiClient from "../services/apiClient";
+import { AuthorizeContext } from "../contexts/auth";
+
 export const Signup = () => {
-  const handleSubmit = (e) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
+
+  const navigate = useNavigate();
+  const { setAuthState } = useContext(AuthorizeContext);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const firstName = e.target.firstName.value.trim();
-    const lastName = e.target.lastName.value.trim();
-    const email = e.target.email.value.trim();
-    const password = e.target.password.value.trim();
-    const retypePassword = e.target.retypePassword.value.trim();
+    try {
+      const { data, error } = await apiClient.register({
+        firstName,
+        lastName,
+        email,
+        password,
+      });
 
-    if (password !== retypePassword) {
-      alert("Passwords do not match!");
-      return;
+      if (data) {
+        setAuthState((state) => ({ ...state, isAuthenticated: true }));
+        localStorage.setItem("user_token", data.token);
+        navigate("/journal");
+      } else {
+        console.error(error || "Failed to register.");
+      }
+    } catch (err) {
+      console.error(err);
     }
-
-    console.log("Resgistering: ", firstName, lastName, email, password);
-    fetch("http://localhost:3000/api/users/register", {
-      method: "POST",
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      }),
-    });
-
-    console.log("Account created for:", firstName, lastName, email);
-
-    this.context.router.push("client/src/views/home.jsx");
   };
 
   return (
@@ -45,7 +50,8 @@ export const Signup = () => {
               <input
                 type="text"
                 id="firstName"
-                name="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 style={styles.input}
                 required
               />
@@ -56,7 +62,8 @@ export const Signup = () => {
               <input
                 type="text"
                 id="lastName"
-                name="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 style={styles.input}
                 required
               />
@@ -68,7 +75,8 @@ export const Signup = () => {
             <input
               type="email"
               id="email"
-              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={styles.input}
               required
             />
@@ -79,7 +87,8 @@ export const Signup = () => {
             <input
               type="password"
               id="password"
-              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               style={styles.input}
               required
             />
@@ -90,7 +99,8 @@ export const Signup = () => {
             <input
               type="password"
               id="retypePassword"
-              name="retypePassword"
+              value={retypePassword}
+              onChange={(e) => setRetypePassword(e.target.value)}
               style={styles.input}
               required
             />

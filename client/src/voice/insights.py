@@ -1,14 +1,7 @@
-from textblob import TextBlob
-from record_and_transcribe import record_and_transcribe
+from transformers import pipeline
 
-def sentiment_analysis(text):
-    blob = TextBlob(text)
-    sentiment = blob.sentiment
-    return {
-        "polarity": sentiment.polarity,  
-        "subjectivity": sentiment.subjectivity  
-    }
+emotion_classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base")
 
-# transcription = "But I'm also very sad because why isn't this working?"
-# insights = sentiment_analysis(transcription)
-# print(insights)
+def emotion_analysis(text):
+    emotions = emotion_classifier(text)
+    return emotions

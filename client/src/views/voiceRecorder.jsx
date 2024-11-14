@@ -7,24 +7,19 @@ export const VoiceRecorder = () => {
   const [error, setError] = useState('');
 
   const handleRecordAndTranscribe = async () => {
-    setLoading(true); // doesn't time out hopefully
-    setError('');
-    setTranscription('');
-    setInterpretation({});
+    resetStates();
+    setLoading(true);
 
     try {
-        const response = await fetch('http://localhost:5000/transcribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-
+      const response = await fetchTranscription();
       const data = await response.json();
 
       if (response.ok) {
         setTranscription(data.transcription);
-        setInterpretation(data.interpretation);
+        
+        // Set interpretation directly as a single object (not an array)
+        setInterpretation(data.interpretation || {});
+        console.log(data.interpretation)
       } else {
         setError(`Error: ${data.error}`);
       }
@@ -35,6 +30,19 @@ export const VoiceRecorder = () => {
     }
   };
 
+  const resetStates = () => {
+    setError('');
+    setTranscription('');
+    setInterpretation({});
+  };
+
+  const fetchTranscription = () => {
+    return fetch('http://localhost:5000/transcribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
+
   return (
     <div style={styles.container}>
       <button onClick={handleRecordAndTranscribe} style={styles.button} disabled={loading}>
@@ -43,10 +51,13 @@ export const VoiceRecorder = () => {
       <div style={styles.result}>
         {error && <p style={styles.error}>{error}</p>}
         {transcription && <p>Transcription: {transcription}</p>}
-        {interpretation.polarity !== undefined && (  
-          <p>
-            Interpretation: Polarity: {interpretation.polarity}, Subjectivity: {interpretation.subjectivity}
-          </p>
+        
+        {interpretation.label && (
+          <div>
+            <h3>Emotion Analysis:</h3>
+            <p>Emotion: {interpretation.label}</p>
+            <p>Score: {interpretation.score.toFixed(2)}</p>
+          </div>
         )}
       </div>
     </div>
@@ -74,4 +85,3 @@ const styles = {
     color: 'red',
   },
 };
-

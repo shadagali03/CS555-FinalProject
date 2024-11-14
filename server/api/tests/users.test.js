@@ -16,6 +16,7 @@ describe("User Authentication", () => {
       const res = await request(app)
         .post("/api/users/register") // Adjust the route if necessary
         .send(newUser);
+      console.log(res.body);
 
       expect(res.statusCode).toBe(201);
       expect(res.body).toHaveProperty("user");
