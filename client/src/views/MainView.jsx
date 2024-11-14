@@ -1,4 +1,4 @@
-const MainView = () => {
+export const MainView = () => {
 	return (
 		<div style={styles.container}>
 			{/* Hero Section */}
