@@ -19,17 +19,42 @@ function UserProfile() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
     // Handle form submission (e.g., save to a database or local storage)
-    console.log('Profile saved:', profile);
-    alert('Your profile has been saved successfully!');
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/profile`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(profile),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Profile saved:', data);
+        alert('Your profile has been saved successfully!');
+      } else {
+        console.error('Failed to save profile');
+        alert('Failed to save profile');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while saving your profile');
+    }
   };
 
   return (
     <div className="user-profile-container">
       <h1>Set Up Your Profile</h1>
-      <p>Fill in your personal details and health information to receive personalized reminders.</p>
+      <p>
+        Fill in your personal details and health information to receive
+        personalized reminders.
+      </p>
 
       <form className="user-profile-form" onSubmit={handleSubmit}>
         <label>
@@ -96,7 +121,9 @@ function UserProfile() {
           />
         </label>
 
-        <button type="submit" className="submit-button">Save Profile</button>
+        <button type="submit" className="submit-button">
+          Save Profile
+        </button>
       </form>
     </div>
   );
