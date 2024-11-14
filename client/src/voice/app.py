@@ -2,26 +2,48 @@ from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from record_and_transcribe import record_and_transcribe
 from insights import emotion_analysis
-from streamingText import generate_transcription_chunks
+#from streamingText import generate_transcription_chunks
+import json
+from datetime import datetime
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 CORS(app) 
 
+FILE_PATH= "transcriptions.json"
+
+def save_transcription(transcription_data):
+    try:
+        with open(FILE_PATH, 'a') as file:
+            json.dump(transcription_data, file)
+            file.write('\n')
+        logging.info("Successfully saved transcription data.")
+    except Exception as e:
+        logging.error(f"Failed to save transcription data: {str(e)}")
+
+
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     try:
         transcription = record_and_transcribe()
-        print(f"Transcription: {transcription}")  # Debugging
+        print(f"Transcription: {transcription}") 
         insights = emotion_analysis(transcription)
-        print(f"Insights: {insights}")  # Debugging
+        print(f"Insights: {insights}")  
+
+        transcription_data = { # format look good? idk
+            "timestamp": datetime.now().isoformat(),
+            "transcription": transcription,
+            "interpretation": insights[0]
+        }
+        save_transcription(transcription_data)
+
         return jsonify({
             "transcription": transcription,
             "interpretation": insights[0]
         }), 200
     except Exception as e:
-        logging.error(f"Error in /transcribe endpoint: {str(e)}")  # Error Logging
+        logging.error(f"Error in /transcribe endpoint: {str(e)}")  
         return jsonify({
             "error": str(e)
         }), 5
