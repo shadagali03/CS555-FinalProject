@@ -38,6 +38,7 @@ function UserProfile() {
         const data = await response.json();
         console.log('Profile saved:', data);
         alert('Your profile has been saved successfully!');
+        setProfile(data);
       } else {
         console.error('Failed to save profile');
         alert('Failed to save profile');
