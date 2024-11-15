@@ -1,0 +1,1 @@
+{"timestamp": "2024-11-14T19:45:03.243381", "transcription": " Not working. It takes so fucking long.", "interpretation": {"label": "anger", "score": 0.5556270480155945}}

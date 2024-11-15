@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 CORS(app) 
 
-FILE_PATH= "transcriptions.json"
+FILE_PATH= "transcriptions.txt"
 
 def save_transcription(transcription_data):
     try:
