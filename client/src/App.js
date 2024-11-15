@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainView from "./views/MainView";
 import Navbar from "./views/components/Navbar";
 import UserProfile from "./views/userProfile";
+import { VoiceRecorder } from "./views/voiceRecorder";
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ export const App = () => {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<MainView />} />
-          <Route path='voiceRecorder' element={<VoiceRecorder />} />
+          <Route path='/voiceRecorder' element={<VoiceRecorder />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/journal" element={<Journal />} />
