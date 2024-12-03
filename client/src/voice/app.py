@@ -6,6 +6,7 @@ from insights import emotion_analysis
 import json
 from datetime import datetime
 import logging
+from chatbot import generate_llm_response
 logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
@@ -31,14 +32,26 @@ def transcribe():
         insights = emotion_analysis(transcription)
         print(f"Insights: {insights}")  
 
+        emotion = insights[0]['label']
+        confidence = insights[0]['score']  
+        llm_response = generate_llm_response(transcription, emotion, confidence)
+        #print(f"LLM Response: {llm_response}")
+
+
         transcription_data = { # format look good? idk
             "timestamp": datetime.now().isoformat(),
             "transcription": transcription,
-            "interpretation": insights[0]
+            # "interpretation": insights[0], making below more convoluted ??
+            "emotion": {
+                "label": emotion,
+                "score": confidence
+            },
+            "response": llm_response
         }
         save_transcription(transcription_data)
 
         return jsonify({
+            "llm_response": llm_response,
             "transcription": transcription,
             "interpretation": insights[0]
         }), 200
@@ -49,9 +62,9 @@ def transcribe():
         }), 5
 
 
-@app.route('/stream_transcription', methods=['GET'])
-def stream_transcription()  :
-    return Response(generate_transcription_chunks(), mimetype='text/event-stream')
+# @app.route('/stream_transcription', methods=['GET'])
+# def stream_transcription()  :
+#     return Response(generate_transcription_chunks(), mimetype='text/event-stream')
 
 if __name__ == '__main__':
     app.run(port=5000)
