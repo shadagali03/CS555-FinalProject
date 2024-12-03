@@ -34,23 +34,38 @@ export const Journal = () => {
     switch (activeSection) {
       case "Entries":
         return (
-          <div style={styles.sectionContent}>
-            <h2>Journal Entries</h2>
+          <section
+            style={styles.sectionContent}
+            aria-labelledby="entries-header"
+          >
+            <h2 id="entries-header">Journal Entries</h2>
             <div style={styles.entryForm}>
+              <label htmlFor="entry-input">Write your entry here:</label>
               <textarea
+                id="entry-input"
                 style={styles.input}
                 placeholder="Write your entry here..."
                 value={entry}
                 onChange={(e) => setEntry(e.target.value)}
+                aria-label="Journal Entry Input"
               />
-              <button style={styles.button} onClick={handleAddEntry}>
+              <button
+                style={styles.button}
+                onClick={handleAddEntry}
+                aria-label="Add Journal Entry"
+              >
                 Add Entry
               </button>
             </div>
-            <div style={styles.entries}>
+            <div style={styles.entries} role="list">
               {entries.length > 0 ? (
                 entries.map((entry, index) => (
-                  <div key={index} style={styles.entry}>
+                  <div
+                    key={index}
+                    style={styles.entry}
+                    role="listitem"
+                    aria-label={`Journal Entry ${index + 1}`}
+                  >
                     {entry}
                   </div>
                 ))
@@ -58,27 +73,39 @@ export const Journal = () => {
                 <p>No entries yet. Start writing to keep track of your health!</p>
               )}
             </div>
-          </div>
+          </section>
         );
       case "Goals":
         return (
-          <div style={styles.sectionContent}>
-            <h2>Health Goals</h2>
+          <section style={styles.sectionContent} aria-labelledby="goals-header">
+            <h2 id="goals-header">Health Goals</h2>
             <div style={styles.entryForm}>
+              <label htmlFor="goal-input">Set a health goal:</label>
               <input
+                id="goal-input"
                 style={styles.input}
                 placeholder="Set a health goal..."
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
+                aria-label="Health Goal Input"
               />
-              <button style={styles.button} onClick={handleAddGoal}>
+              <button
+                style={styles.button}
+                onClick={handleAddGoal}
+                aria-label="Add Health Goal"
+              >
                 Add Goal
               </button>
             </div>
-            <div style={styles.entries}>
+            <div style={styles.entries} role="list">
               {goals.length > 0 ? (
                 goals.map((goal, index) => (
-                  <div key={index} style={styles.entry}>
+                  <div
+                    key={index}
+                    style={styles.entry}
+                    role="listitem"
+                    aria-label={`Health Goal ${index + 1}`}
+                  >
                     {goal}
                   </div>
                 ))
@@ -86,27 +113,42 @@ export const Journal = () => {
                 <p>No goals set yet. Start adding goals to stay motivated!</p>
               )}
             </div>
-          </div>
+          </section>
         );
       case "Reminders":
         return (
-          <div style={styles.sectionContent}>
-            <h2>Daily Reminders</h2>
+          <section
+            style={styles.sectionContent}
+            aria-labelledby="reminders-header"
+          >
+            <h2 id="reminders-header">Daily Reminders</h2>
             <div style={styles.entryForm}>
+              <label htmlFor="reminder-input">Add a reminder:</label>
               <input
+                id="reminder-input"
                 style={styles.input}
                 placeholder="Add a reminder..."
                 value={reminder}
                 onChange={(e) => setReminder(e.target.value)}
+                aria-label="Daily Reminder Input"
               />
-              <button style={styles.button} onClick={handleAddReminder}>
+              <button
+                style={styles.button}
+                onClick={handleAddReminder}
+                aria-label="Add Reminder"
+              >
                 Add Reminder
               </button>
             </div>
-            <div style={styles.entries}>
+            <div style={styles.entries} role="list">
               {reminders.length > 0 ? (
                 reminders.map((reminder, index) => (
-                  <div key={index} style={styles.entry}>
+                  <div
+                    key={index}
+                    style={styles.entry}
+                    role="listitem"
+                    aria-label={`Daily Reminder ${index + 1}`}
+                  >
                     {reminder}
                   </div>
                 ))
@@ -114,7 +156,7 @@ export const Journal = () => {
                 <p>No reminders set yet. Start adding reminders for daily tasks!</p>
               )}
             </div>
-          </div>
+          </section>
         );
       default:
         return null;
@@ -123,17 +165,39 @@ export const Journal = () => {
 
   return (
     <div style={styles.container}>
-      <div style={styles.sidebar}>
+      <nav style={styles.sidebar} aria-label="Journal Navigation">
         <h2>Health Journal</h2>
         <ul style={styles.navList}>
-          <li style={styles.navItem} onClick={() => setActiveSection("Entries")}>Entries</li>
-          <li style={styles.navItem} onClick={() => setActiveSection("Goals")}>Goals</li>
-          <li style={styles.navItem} onClick={() => setActiveSection("Reminders")}>Reminders</li>
+          <li
+            style={styles.navItem}
+            onClick={() => setActiveSection("Entries")}
+            tabIndex={0}
+            role="button"
+            aria-label="Switch to Entries Section"
+          >
+            Entries
+          </li>
+          <li
+            style={styles.navItem}
+            onClick={() => setActiveSection("Goals")}
+            tabIndex={0}
+            role="button"
+            aria-label="Switch to Goals Section"
+          >
+            Goals
+          </li>
+          <li
+            style={styles.navItem}
+            onClick={() => setActiveSection("Reminders")}
+            tabIndex={0}
+            role="button"
+            aria-label="Switch to Reminders Section"
+          >
+            Reminders
+          </li>
         </ul>
-      </div>
-      <div style={styles.journalContent}>
-        {renderSection()}
-      </div>
+      </nav>
+      <main style={styles.journalContent}>{renderSection()}</main>
     </div>
   );
 };
