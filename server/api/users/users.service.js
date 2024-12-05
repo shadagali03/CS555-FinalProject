@@ -27,9 +27,33 @@ export const loginUser = async (creds) => {
     if (isValid) {
       // Exclude the password from the user object before generating the token
       const { password: _, ...userWithoutPassword } = user;
+
+      // Return the user data and token
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      console.log(yesterday);
+      const year = yesterday.getFullYear();
+      const month = String(yesterday.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+      const day = String(yesterday.getDate()).padStart(2, "0");
+      const yesterdayFormatted = `${year}-${month}-${day}`;
+      const currentDate = new Date().toISOString().split("T")[0];
+      console.log(yesterdayFormatted, user.lastLoggedIn);
+      if (user.lastLoggedIn === yesterdayFormatted) {
+        await usersCollection.updateOne(
+          { email: normalizedEmail },
+          { $inc: { streaks: 1 }, $set: { lastLoggedIn: currentDate } }
+        );
+        userWithoutPassword.streaks += 1;
+      } else if (user.lastLoggedIn !== currentDate) {
+        await usersCollection.updateOne(
+          { email: normalizedEmail },
+          { $set: { streaks: 1, lastLoggedIn: currentDate } }
+        );
+        userWithoutPassword.streaks = 1;
+      }
       // Create a JWT token for the authenticated user
       const userToken = await createUserToken(userWithoutPassword);
-      // Return the user data and token
       return { user: userWithoutPassword, userToken };
     }
   }
@@ -62,11 +86,17 @@ export const registerUser = async (creds) => {
 
     // Hash the user's password for secure storage
     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, "0");
     const user = {
       firstName,
       lastName,
       email: normalizedEmail,
       password: hashedPassword,
+      streaks: 1,
+      lastLoggedIn: `${year}-${month}-${day}`,
     };
 
     // Insert the new user into the database

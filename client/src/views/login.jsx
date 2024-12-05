@@ -19,7 +19,7 @@ export const Login = () => {
       if (data) {
         setAuthState((state) => ({ ...state, isAuthenticated: true }));
         localStorage.setItem("user_token", data.token);
-        navigate("/journal");
+        navigate("/home");
       } else {
         console.error(error || message);
       }
