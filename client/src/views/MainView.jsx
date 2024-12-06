@@ -76,7 +76,7 @@ export const MainView = () => {
 							style={styles.icon}
 						/>
 						<h3>Health Journal</h3>
-						<p>Record your health and mood daily with voice commands.</p>
+						<p>Record your health and mood daily.</p>
 					</div>
 				</div>
 			</section>
