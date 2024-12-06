@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 export const VoiceRecorder = () => {
   const [transcription, setTranscription] = useState('');
   const [interpretation, setInterpretation] = useState({});
+  const [llmResponse, setLlmResponse] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -13,12 +14,14 @@ export const VoiceRecorder = () => {
     try {
       const response = await fetchTranscription();
       const data = await response.json();
+      console.log(data)
 
       if (response.ok) {
         setTranscription(data.transcription);
         
         // Set interpretation directly as a single object (not an array)
         setInterpretation(data.interpretation || {});
+        setLlmResponse(data.llm_response || '');
         console.log(data.interpretation)
       } else {
         setError(`Error: ${data.error}`);
@@ -34,6 +37,7 @@ export const VoiceRecorder = () => {
     setError('');
     setTranscription('');
     setInterpretation({});
+    setLlmResponse('');
   };
 
   const fetchTranscription = () => {
@@ -50,13 +54,16 @@ export const VoiceRecorder = () => {
       </button>
       <div style={styles.result}>
         {error && <p style={styles.error}>{error}</p>}
-        {transcription && <p>Transcription: {transcription}</p>}
-        
-        {interpretation.label && (
+        {transcription && (
           <div>
-            <h3>Emotion Analysis:</h3>
-            <p>Emotion: {interpretation.label}</p>
-            <p>Score: {interpretation.score.toFixed(2)}</p>
+            <h3>Transcription:</h3>
+            <p>{transcription}</p>
+          </div>
+        )}
+        {llmResponse && (
+          <div>
+            <h3>Chatbot Response:</h3>
+            <p>{llmResponse}</p>
           </div>
         )}
       </div>
