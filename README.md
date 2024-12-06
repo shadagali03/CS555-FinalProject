@@ -80,6 +80,22 @@ Ultimately, the project focuses on improving seniors' quality of life by making 
    npm run test
    ```
 
+
+### To run the python server from root directory (for voice interaction)
+1.) cd into folder
+  ```bash
+  cd client/src/voice
+  ```
+
+2.) install requirements
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+3.) start the flask server 
+  ```bash
+  python3 app.py
+  ```
 ### Frontend (React)
 
 1. Navigate to the frontend directory:
